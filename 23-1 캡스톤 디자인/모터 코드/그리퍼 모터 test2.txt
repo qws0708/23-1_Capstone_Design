@@ -1,0 +1,48 @@
+void setup() {
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+
+  Serial.begin(9600);
+}
+
+
+void loop() {
+  // 0 : 상승, 1 : 하강 , 2: 정지
+  Serial.println("Enter 0 when up or enter 1 when down and enter 2 when stop");
+  Serial.print("Enter 0 or 1 or 2= ");
+
+  while (Serial.available() == 0) {} 
+  int X = Serial.parseInt();          
+  Serial.println(X);                 
+
+  while (Serial.available() > 0) {
+    char _ = Serial.read();
+  }
+
+  // 좌빨우검
+  if (X == 0) {  // UP
+    delay(500);
+    digitalWrite(3, 0);  
+    digitalWrite(4, 255);
+    delay(500);
+    digitalWrite(3, 0); 
+    digitalWrite(4, 0);
+  }
+
+  if (X == 1) {  // down
+    delay(500);
+    digitalWrite(3, 255);  
+    digitalWrite(4, 0);
+    delay(500);
+    digitalWrite(3, 0); 
+    digitalWrite(4, 0);
+  }
+
+  if (X == 2) {  // stop
+    delay(500);
+    digitalWrite(3, 0);  
+    digitalWrite(4, 0);
+  }
+
+  delay(1000);
+}

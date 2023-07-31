@@ -1,0 +1,42 @@
+------------------------TX----------------------------
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  Serial.println("UART start");
+  Serial.print("Enter the enumber = ");
+
+  while (Serial.available() == 0) {} 
+  int X = Serial.parseInt();          
+  Serial.println(X);                 
+
+  // Clear the input buffer
+  while (Serial.available() > 0) {
+    char _ = Serial.read();
+  }
+
+  if (X == 0) {
+    Serial.println("A");
+  }
+
+  delay(1000);
+}
+
+
+-----------------------RX------------------------------------
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  while (Serial.available()) {
+    char data = Serial.read();
+    if (data == '0') {
+      Serial.println("fuck arduino");
+    }
+  }
+}
+

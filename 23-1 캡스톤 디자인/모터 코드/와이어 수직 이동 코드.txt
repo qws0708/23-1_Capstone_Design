@@ -1,0 +1,217 @@
+int IN1 = 2;
+int IN2 = 3;
+int IN3 = 4;
+int IN4 = 5;
+
+int IN5 = 8;
+int IN6 = 9;
+int IN7 = 10;
+int IN8 = 11;
+
+int IN9 = 12;
+int IN10 = 13;
+
+
+void setup() {
+
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+  pinMode(IN5, OUTPUT);
+  pinMode(IN6, OUTPUT);
+  pinMode(IN7, OUTPUT);
+  pinMode(IN8, OUTPUT);
+  pinMode(IN9, OUTPUT);
+  pinMode(IN10, OUTPUT);
+
+  Serial.begin(9600);
+}
+
+
+void M1_Forward_Turn1() {  // X축 시계방향 1.8도 한바퀴
+  digitalWrite(IN5, LOW);
+  digitalWrite(IN6, HIGH);
+  digitalWrite(IN7, HIGH);
+  digitalWrite(IN8, LOW);
+  delay(3);
+}
+
+void M1_Forward_Turn2() {  // X축 시계방향 1.8도 한바퀴
+  digitalWrite(IN5, LOW);
+  digitalWrite(IN6, HIGH);
+  digitalWrite(IN7, LOW);
+  digitalWrite(IN8, HIGH);
+  delay(3);
+}
+
+void M1_Forward_Turn3() {  // X축 시계방향 1.8도 한바퀴
+  digitalWrite(IN5, HIGH);
+  digitalWrite(IN6, LOW);
+  digitalWrite(IN7, LOW);
+  digitalWrite(IN8, HIGH);
+  delay(3);
+}
+
+void M1_Forward_Turn4() {  // X축 시계방향 1.8도 한바퀴
+  digitalWrite(IN5, HIGH);
+  digitalWrite(IN6, LOW);
+  digitalWrite(IN7, HIGH);
+  digitalWrite(IN8, LOW);
+  delay(3);
+}
+
+
+
+void M1_Backward_Turn1() {  // X축 반시계방향 1.8도 한바퀴
+  digitalWrite(IN5, HIGH);
+  digitalWrite(IN6, LOW);
+  digitalWrite(IN7, HIGH);
+  digitalWrite(IN8, LOW);
+  delay(3);
+}
+
+void M1_Backward_Turn2() {  // X축 반시계방향 1.8도 한바퀴
+  digitalWrite(IN5, HIGH);
+  digitalWrite(IN6, LOW);
+  digitalWrite(IN7, LOW);
+  digitalWrite(IN8, HIGH);
+  delay(3);
+}
+
+void M1_Backward_Turn3() {  // X축 반시계방향 1.8도 한바퀴
+  digitalWrite(IN5, LOW);
+  digitalWrite(IN6, HIGH);
+  digitalWrite(IN7, LOW);
+  digitalWrite(IN8, HIGH);
+  delay(3);
+}
+
+void M1_Backward_Turn4() {  // X축 반시계방향 1.8도 한바퀴
+  digitalWrite(IN5, LOW);
+  digitalWrite(IN6, HIGH);
+  digitalWrite(IN7, HIGH);
+  digitalWrite(IN8, LOW);
+  delay(3);
+}
+
+
+
+void M2_Forward_Turn1() {  // Y축 시계방향 1.8도 한바퀴
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+  delay(3);
+}
+
+void M2_Forward_Turn2() {  // Y축 시계방향 1.8도 한바퀴
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+  delay(3);
+}
+
+void M2_Forward_Turn3() {  // Y축 시계방향 1.8도 한바퀴
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+  delay(3);
+}
+
+void M2_Forward_Turn4() {  // Y축 시계방향 1.8도 한바퀴
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+  delay(3);
+}
+
+
+
+void M2_Backward_Turn1() {  // Y축 반시계방향 1.8도 한바퀴
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+  delay(3);
+}
+
+void M2_Backward_Turn2() {  // Y축 반시계방향 1.8도 한바퀴
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+  delay(3);
+}
+
+void M2_Backward_Turn3() {  // Y축 반시계방향 1.8도 한바퀴
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+  delay(3);
+}
+
+void M2_Backward_Turn4() {  // Y축 반시계방향 1.8도 한바퀴
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+  delay(3);
+}
+
+
+
+void loop() {
+  // 회전 수 입력 1바퀴 = 200 = 4cm , 1바퀴 = 1 = 0.02cm
+  Serial.println("Enter 0 when up or enter 1 when down");
+  Serial.print("Enter 0 or 1 = ");
+
+  while (Serial.available() == 0) {}  // Wait until data is available
+  int X = Serial.parseInt();          // Read the input as an integer
+  Serial.println(X);                  // Print the value of x
+
+  // Clear the input buffer
+  while (Serial.available() > 0) {
+    char _ = Serial.read();
+  }
+
+
+  if (X == 0) {  // UP
+    //analogWrite(3, 0);  // 시계방향
+    //analogWrite(4, 255);
+
+    for (int i = 0; i < 400; i++) {
+      M1_Backward_Turn1();
+      M2_Backward_Turn1();
+      M1_Backward_Turn2();
+      M2_Backward_Turn2();
+      M1_Backward_Turn3();
+      M2_Backward_Turn3();
+      M1_Backward_Turn4();
+      M2_Backward_Turn4();
+    }
+  }
+
+  if (X == 1) {  // down
+
+    for (int i = 0; i < 400; i++) {
+      M1_Forward_Turn1();
+      M2_Forward_Turn1();
+      M1_Forward_Turn2();
+      M2_Forward_Turn2();
+      M1_Forward_Turn3();
+      M2_Forward_Turn3();
+      M1_Forward_Turn4();
+      M2_Forward_Turn4();
+    }
+
+    //analogWrite(9, 255);  // 반시계방향
+    //analogWrite(10, 0);
+  }
+
+  delay(1000);
+}
